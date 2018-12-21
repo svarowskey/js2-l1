@@ -1,0 +1,14 @@
+//Класс для пункта меню
+class MenuItem {
+    constructor(href, title)
+    {
+        this.href = href;
+        this.title = title;
+    }
+
+    //Метод возвращает html код для конкретного пункта
+    renderItem()
+    {
+        return `<li><a href="${this.href}"></a>${this.title}</li>`;
+    }
+}

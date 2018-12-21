@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OOP ES5</title>
+    <script>
+        // var user = {
+        //     name: 'Anna',
+        //     email: '1@2.ru',
+        // };
+        //
+        // Object.prototype.showInfo = function () {
+        //     console.log('Имя: ', this.name);
+        //     console.log('E-mail: ', this.email);
+        // };
+        //
+        // console.log(user);
+        // user.showInfo();
+
+        //ES5 - чертеж (класс)
+        function User(name, email) {
+            this.name = name;
+            this.email = email;
+            // this.showInfo = function () {
+            //     console.log('Метод в самом классе, не в прототипе');
+            //     console.log('Имя: ', this.name);
+            //     console.log('E-mail: ', this.email);
+            // };
+        }
+
+        //Выносим функцию в прототип
+        User.prototype.showInfo = function () {
+            console.log('Метод в прототипе');
+            console.log('Имя: ', this.name);
+            console.log('E-mail: ', this.email);
+        };
+
+        var user1 = new User('Anna', '1@2.ru');
+        console.log(user1);
+        user1.showInfo();
+
+        //Класс для наследования
+        function Developer(name, email, salary, department) {
+            //Для вызова конструктора родителя
+            User.call(this, name, email);
+            this.salary = salary;
+            this.department = department;
+        }
+
+        //Наследование методов прототипа
+        Developer.prototype = Object.create(User.prototype);
+        Developer.prototype.constructor = Developer;
+
+        var dev1 = new Developer('Alex', '1@3.ru', 90000, 'frontend');
+        console.log(dev1);
+
+        dev1.showInfo();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

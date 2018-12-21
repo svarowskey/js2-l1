@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES6 - class</title>
+    <script>
+        class User
+        {
+            constructor(name, email)
+            {
+                this.name = name;
+                this.email = email;
+            }
+
+            //function не пишется
+            showInfo()
+            {
+                console.log('Имя: ', this.name);
+                console.log('E-mail: ', this.email);
+            }
+        }
+
+        var user1 = new User('Anna', '1@4.ru');
+        console.log(user1);
+        user1.showInfo();
+
+        class Developer extends User
+        {
+            constructor(name, email, salary, department)
+            {
+                //Для вызова родительского конструктора
+                super(name, email);
+                this.salary = salary;
+                this.department = department;
+            }
+
+            //Метод возвращает название отдела
+            getDepartment() {
+                return this.department;
+            }
+
+            showInfo()
+            {
+                super.showInfo();
+                console.log('Зарплата: ', this.salary);
+                console.log('Отдел: ', this.department);
+            }
+        }
+
+        var dev1 = new Developer('Olga', '3234@ru.local', 90000, 'backend');
+        console.log(dev1);
+        console.log(dev1.getDepartment());
+        dev1.showInfo();
+    </script>
+</head>
+<body>
+
+</body>
+</html>
