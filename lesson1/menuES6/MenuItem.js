@@ -9,6 +9,6 @@ class MenuItem {
     //Метод возвращает html код для конкретного пункта
     renderItem()
     {
-        return `<li><a href="${this.href}"></a>${this.title}</li>`;
+        return `<li><a href="${this.href}">${this.title}</a></li>`;
     }
 }

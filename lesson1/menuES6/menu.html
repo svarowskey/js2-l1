@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Menu</title>
+    <link rel="stylesheet" href="style.css">
     <script src="Menu.js"></script>
+    <script src="SubMenu.js"></script>
     <script src="MenuItem.js"></script>
     <script>
         window.onload = function () {
@@ -13,12 +15,16 @@
             var items = [
                 new MenuItem('/', 'Главная'),
                 new MenuItem('/about', 'О нас'),
-                new MenuItem('/service', 'Услеги'),
+                new SubMenu('service', 'sub-menu', 'Услуги' , [
+                    new MenuItem('/service1', 'Услуга 1'),
+                    new MenuItem('/service2', 'Услуга 2'),
+                    new MenuItem('/service3', 'Услуга 3'),
+                ]),
                 new MenuItem('/contacts', 'Контакты'),
             ];
 
             //Само меню
-            var menu = new Menu('my', 'my', items);
+            var menu = new Menu('my', 'mainMenu', items);
 
             //Выбираем контейнер меню
             var menuContainer = document.getElementById('menu1');
@@ -26,9 +32,9 @@
             //Отображаем на странице html код, который вернул render
             menuContainer.innerHTML = menu.render();
 
-            setTimeout(function () {
-                menu.remove();
-            }, 2000);
+            // setTimeout(function () {
+            //     menu.remove();
+            // }, 2000);
         };
     </script>
 </head>

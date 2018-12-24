@@ -1,0 +1,9 @@
+.sub-menu li {
+  display: none; }
+
+.mainMenu li:hover {
+  cursor: default; }
+  .mainMenu li:hover .sub-menu li {
+    display: block; }
+
+/*# sourceMappingURL=style.css.map */

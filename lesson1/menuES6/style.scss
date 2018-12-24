@@ -1,0 +1,9 @@
+.sub-menu li {
+  display: none;
+}
+.mainMenu li:hover{
+  cursor: default;
+  .sub-menu li {
+    display: block;
+  }
+}
