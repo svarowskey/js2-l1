@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX</title>
+    <script>
+        let userJSON = '{"name": "Anna", "age": 28, "isAdmin": true}';
+
+        let user = JSON.parse(userJSON);
+
+        // console.log(user);
+        // console.log(user.name);
+
+        user.friends = ['Olga', 'Alex'];
+
+        user.address = {
+            city: 'Moscow',
+            index: '000000',
+            street: 'Novaya Street',
+        };
+
+        let jsonFromUser = JSON.stringify(user, ['name', 'age'], 4);
+        // console.log(jsonFromUser);
+
+        let user2 = user; //user2 - не копия, это ссылка на объект
+        let user3 = JSON.parse(jsonFromUser); //Копия
+
+        window.onload = function () {
+            let ajaxData = document.getElementById('ajax-data');
+            let ajaxData2 = document.getElementById('ajax-data2');
+
+            document.getElementById('btn1').addEventListener('click', function () {
+                //AJAX
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', './user.json', false); //false - синхронный запрос
+                xhr.send(); //Отправка запроса
+                if (xhr.status !== 200) {
+                    console.log('Error', xhr.status, xhr.statusText);
+                } else {
+                    console.log('ok', xhr.responseText);
+                    let user = JSON.parse(xhr.responseText);
+
+                    let userName = document.createElement('div');
+                    userName.textContent = user.name;
+
+                    let userAge = document.createElement('div');
+                    userAge.textContent = user.age;
+
+                    let userTel = document.createElement('div');
+                    userTel.textContent = user.tel;
+
+                    ajaxData.appendChild(userName);
+                    ajaxData.appendChild(userAge);
+                    ajaxData.appendChild(userTel);
+                }
+            });
+
+
+            document.getElementById('btn2').addEventListener('click', function () {
+                //AJAX
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', './user.json', true); //true - асинхронный запрос
+
+                //Навешиваем функцию обработчик, которая будет отвечать за запрос
+                //Функция вызовется несколько раз
+
+                xhr.onreadystatechange = function () {
+                    // console.log(xhr.readyState);
+                    //xhr.readyState
+                        //0 - запрос не инициализирован
+                        //1 - загрузка данных на сервер
+                        //2 - запрос принят
+                        //3 - идет обмен данными
+                        //4 - запрос выполнен
+
+                    if (xhr.readyState !== 4) {return;}
+
+                    //Так же как и в синхронном
+
+                    if (xhr.status !== 200) {
+                        console.log('Error', xhr.status, xhr.statusText);
+                    } else {
+                        console.log('ok', xhr.responseText);
+                        let user = JSON.parse(xhr.responseText);
+
+                        let userName = document.createElement('div');
+                        userName.textContent = user.name;
+
+                        let userAge = document.createElement('div');
+                        userAge.textContent = user.age;
+
+                        let userTel = document.createElement('div');
+                        userTel.textContent = user.tel;
+
+                        ajaxData2.appendChild(userName);
+                        ajaxData2.appendChild(userAge);
+                        ajaxData2.appendChild(userTel);
+                    }
+                };
+
+                xhr.send(); //Отправка запроса
+
+            });
+        };
+    </script>
+</head>
+<body>
+    <button id="btn1">Получить данные</button>
+    <button id="btn2">Получить данные(async)</button>
+    <div id="ajax-data"></div>
+    <div id="ajax-data2"></div>
+</body>
+</html>
