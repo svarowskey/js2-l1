@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax-request</title>
+    <script>
+
+        window.onload = function () {
+            document.getElementById('btn1').addEventListener('click', function () {
+                resultRequest("success");
+            });
+
+            document.getElementById('btn2').addEventListener('click', function () {
+                resultRequest("error");
+            });
+            function resultRequest(request) {
+
+                let xhr = new XMLHttpRequest();
+
+                switch (request) {
+                    case "success":
+                        xhr.open('GET', './success.json', true);
+                        break;
+                    case "error":
+                        xhr.open('GET', './error.json', true);
+                        break;
+                    default:
+                        alert('not!');
+                        break;
+                }
+                xhr.send();
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        let status = JSON.parse(xhr.responseText);
+                        console.log(status.status);
+                    }
+                }
+            }
+        };
+
+
+    </script>
+</head>
+<body>
+    <button id="btn1">Success</button>
+    <button id="btn2">Error</button>
+</body>
+</html>
