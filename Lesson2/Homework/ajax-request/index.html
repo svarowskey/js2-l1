@@ -36,7 +36,7 @@
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4) {
                         let status = JSON.parse(xhr.responseText);
-                        alert(`Текущий результат: ${xhr.status === "success" ? "success" : "error"}`)
+                        alert("Текущий результат: " + (status.status === "success" ? "success" : "error"));
                     }
                 }
             }
