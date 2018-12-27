@@ -3,8 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Fetch</title>
+    <script>
+        window.onload = function () {
+            let ajaxData = document.getElementById('ajax-data');
+
+            document.getElementById('btn1').addEventListener('click', function () {
+                //Fetch
+                fetch('./user.json?userId=1', {
+                    method: 'GET', //POST
+                    // body: 'userId=1' //Сами данные для передачи на сервер (POST)
+                })
+                    .then(function (response) {
+                        console.log(response.headers.get('Content-Type'));
+                        console.log(response.status);
+
+                        return response.json(); //Вернуть данные в формате JSON
+                    }).then(function (user) {
+                    console.log(user);
+                    display(user);
+                });
+
+                function display(user) {
+                    let userName = document.createElement('div');
+                    userName.textContent = user.name;
+
+                    let userAge = document.createElement('div');
+                    userAge.textContent = user.age;
+
+                    let userTel = document.createElement('div');
+                    userTel.textContent = user.tel;
+
+                    ajaxData.appendChild(userName);
+                    ajaxData.appendChild(userAge);
+                    ajaxData.appendChild(userTel);
+                }
+
+            });
+        };
+    </script>
 </head>
 <body>
-
+<button id="btn1">Получить данные</button>
+<div id="ajax-data"></div>
 </body>
 </html>
