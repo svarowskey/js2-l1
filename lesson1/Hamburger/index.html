@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Hamburgers</title>
+        <style>
+            .wrapper{
+                display: flex;
+                flex-direction: column;
+                width: 100px;
+                align-items: baseline
+            }
+            #calculate {
+                display: block;
+                margin: 20px 0 20px 20px;
+            }
+            #result {
+                width: 200px;
+                padding: 20px;
+            }
+        </style>
+        <script src="hamburger.js"></script>
+    </head>
+    <body>
+        <form action="#">
+            <fieldset class="wrapper">
+                <legend>Size</legend>
+                <label for="large">Large</label>
+                <input type="radio" name="size" id="large"><br><br>
+                <label for="small">Small</label>
+                <input type="radio" name="small" id="small">
+            </fieldset>
+            <fieldset class="wrapper">
+                <legend>Stuffing</legend>
+                <label for="cheese">Cheese</label>
+                <input type="checkbox" id="cheese"><br><br>
+                <label for="salad">Salad</label>
+                <input type="checkbox" id="salad"><br><br>
+                <label for="potato">Potato</label>
+                <input type="checkbox" id="potato"><br><br>
+            </fieldset>
+            <fieldset class="wrapper">
+                <legend>Topping</legend>
+                <label for="mayo">Mayonnaise</label>
+                <input type="checkbox" id="mayo"><br><br>
+                <label for="spice">Spice</label>
+                <input type="checkbox" id="spice"><br><br>
+            </fieldset>
+            <button id="calculate">Calculate</button>
+        </form>
+    <div id="result"></div>
+    </body>
+</html>

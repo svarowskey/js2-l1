@@ -24,9 +24,9 @@ class Menu {
         result += '</ul>';
         return result;
     }
-
-    remove() {
-        var myMenu = document.getElementById(`${this.id}`);
-        myMenu.innerHTML = '';
-    }
 }
+
+Menu.prototype.remove = function () {
+    var myMenu = document.getElementById(`${this.id}`);
+    myMenu.parentNode.removeChild(myMenu);
+};

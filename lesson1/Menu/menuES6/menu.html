@@ -32,13 +32,15 @@
             //Отображаем на странице html код, который вернул render
             menuContainer.innerHTML = menu.render();
 
-            // setTimeout(function () {
-            //     menu.remove();
-            // }, 2000);
+            let myBtn1 = document.getElementById('btn1');
+            myBtn1.onclick = function () {
+                menu.remove();
+            }
         };
     </script>
 </head>
 <body>
     <div id="menu1"></div>
+    <button id="btn1">Delete menu</button>
 </body>
 </html>
