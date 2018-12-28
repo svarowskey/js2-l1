@@ -1,14 +1,26 @@
 [
   {
-    "min": "/min/1.jpg",
-    "max": "/max/1.jpg"
+    "min": "./min/1.jpg",
+    "max": "./max/1.jpg"
   },
   {
-    "min": "/min/2.jpg",
-    "max": "/max/2.jpg"
+    "min": "./min/2.jpg",
+    "max": "./max/2.jpg"
   },
   {
-    "min": "/min/3.jpg",
-    "max": "/max/3.jpg"
+    "min": "./min/3.jpg",
+    "max": "./max/3.jpg"
+  },
+  {
+    "min": "./min/4.jpg",
+    "max": "./max/4.jpg"
+  },
+  {
+    "min": "./min/5.jpg",
+    "max": "./max/5.jpg"
+  },
+  {
+    "min": "./min/6.jpg",
+    "max": "./max/6.jpg"
   }
 ]
