@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ajax-request</title>
     <script>
-
         window.onload = function () {
             document.getElementById('btn1').addEventListener('click', function () {
                 resultRequest("success");
@@ -36,13 +35,11 @@
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4) {
                         let status = JSON.parse(xhr.responseText);
-                        alert(`Текущий результат: ${xhr.status === "success" ? "success" : "error"}`)
+                        alert("Текущий результат: " + (status.status === "success" ? "success" : "error"));
                     }
                 }
             }
         };
-
-
     </script>
 </head>
 <body>
