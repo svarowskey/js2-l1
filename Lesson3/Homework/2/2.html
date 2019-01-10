@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 3 Homework 2</title>
+    <script>
+        let str = "He turned away. 'Yes,' he said. 'What happened?' \n" +
+            "'I' don't know,' said Brody. 'But I think a shark attacked her.' \n" +
+            "That night Brody met his friend Harry Meadows. Harry wrote for the town's newspaper, The Amity Leader. ' I think it was a shark attack,' said Brody. \n" +
+            "'You're right,' said Meadows. 'This afternoon I talked to a young man called Matt Hooper. He knows everything about sharks.' \n" +
+            "'What did he say?' \n" +
+            "'He thinks it's a Great White Shark. They call the Great White the \"man-eater\". Other sharks don't usually attack people.' \n" +
+            "'Does he think it will attack again?' \n" +
+            "'No. Hooper thinks this was an accident. He thinks the shark is now far away'. Meadows looked at Brody. 'It's not going to happen again,' he said. 'And I'm not going to write about the accident in The Amity Leader! \n" +
+            "'But it's a big story for your newspaper.' \n" +
+            "' I know, Martin. But it's summer and this town must have visitors in the summer. People are afraid of sharks.' \n" +
+            "'That's true, Harry,' said Brody. 'But I want to close the beaches for one or two days.";
+        console.log(str.replace(/^'|(\s)'|'(\s)|'$/g, `$1"$2`));
+    </script>
+</head>
+<body>
+
+</body>
+</html>
