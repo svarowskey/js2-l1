@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>regExp</title>
+    <script>
+        //Синтаксисы создания регулярных выражений
+
+        //Синтаксис 1
+        // var regExp = new RegExp('Регулярное выражение', 'Флаги')
+
+        //Синтаксис 2
+        // var regExp2 = /Регулярное выражение/Флаги;
+
+        //Флаги
+        //i - поиск без учета регистра
+        //g - множественный поиск, чтобы найти все вхождения, а не одно из них
+        //m - многострочный поиск, есть смысл использования только с разделителями вида \n
+
+        var str = 'Язык JavaScript также популярен как и Java с C#!';
+
+        var regExp1 = new RegExp('java');
+
+        //Метод ищет соответствие первого вхождения в строку согласно регулярному выражению
+        //Возвращает позицию первого вхождения или -1 - если ничего не найдено
+        //Флаг g он игнорирует
+        console.log(str.search(regExp1));
+        console.log(str.search(/java/i));
+
+        //Match - метод, который возвращает расширенную информацию
+        //Зависит от флага g
+        //Возвращает массив с расширенной информацией или null - если ничего не найдено
+        console.log(str.match(regExp1));
+        console.log(str.match(/java/i));
+
+        //С флагом - g
+        //Использование: нахождения количества вхождений
+        //Минусы: потеря позиции вхождений
+        console.log(str.match(/java/ig));
+
+        //exec
+        // Без флага g
+        //Результат ничем не отличается от метода match
+        console.log(/java/i.exec(str));
+
+        //С флагом g
+        console.log('---exec -g');
+
+        var regExp2 = /java/ig;
+        var result;
+
+        console.log('Начальный lastIndex:', regExp2.lastIndex);
+
+        while (result = regExp2.exec(str))
+        {
+            console.log(result);
+            console.log('Текущий lastIndex:', regExp2.lastIndex);
+        }
+
+        console.log('Конечный lastIndex:', regExp2.lastIndex);
+        console.log(result);
+        console.log('--- /exec -g');
+
+        //test - используется для валидации полей форм
+        //Возвращает true/false
+        //Флаг g игнорирует
+        console.log(/java/.test(str)); //false
+        console.log(/java/i.test(str)); //true
+
+        //replace
+        //Работает как со строками, так и с регулярными выражениями
+        console.log('+7-000-000-00-01'.replace('-', ':'));
+        console.log('+7-000-000-00-01'.replace(/-/, ':'));
+        console.log('+7-000-000-00-01'.replace(/-/g, ':')); //Полная замена (если известно, на что заменять)
+
+        //Используется для динамической замены
+        var i = 0;
+        var funcExp = function (str, offset, s) {
+            console.log('Найдено:', str, 'на позиции', offset, 'в строке', s);
+            i++;
+            return `:${i}:`;
+        };
+
+        console.log('+7-000-000-00-01'.replace(/-/g, funcExp));
+
+        //Регулярные выражения
+        //Классы, наборы, диапазоны
+        //Квантификаторы
+        //^$
+        //| - альтернация
+        //() - скобочные группы
+
+        //Классы
+        //\d - [0-9] - [0123456789]
+        //\s - space, tab, перевод строки
+        //\w - [a-z0-9_] - [abcdef...]
+        //[а-яА-ЯёЁ] - диапазон для кирриллицы
+        //\b - граница слова
+
+        //\D - [^0-9] - [^0123456789]
+        //\S - все кроме \s
+        //\W - все кроме \w
+        //\B - все кроме \b
+
+        //Объединение - [а-яё\w]
+
+        console.log('Языки программирования и разметки: HTML5, CSS3...'.match(/\w\w\w\w\d/i));
+        console.log('Языки программирования и разметки: HTML5, CSS3...'.match(/\w{4}\d/i));
+
+        console.log('Hello Java!'.match(/\bjava\b/i));
+        console.log('Hello JavaScript!'.match(/\bjava\b/i));
+
+        //Наборы
+        console.log('Топ гоп воп'.match(/[гт]оп/ig));
+        console.log('Топ гоп воп'.match(/(г|т)оп/ig)); //Если может быть несколько символом
+
+        //Диапазоны
+        console.log('Exceptions 0xA5, 0xAF, 0xHY, 0xVF'.match(/0x[a-f0-9][a-f0-9]/ig));
+        console.log('Exceptions 0xA5, 0xAF, 0xHY, 0xVF'.match(/0x[a-f0-9]{2}/ig));
+
+        //Квантификаторы - количество повторений
+        //{m} - число повторений ровно m раз
+        //{m,n} - число повторений от m (включительно до n (включительно)
+        //{m,} - число повторений от m (включительно) и более
+        //{,n} - число повторений от 0 до n (включительно)
+
+        //Сокращения
+        //+ - (1, ) - 1 (включительно) и более
+        //* - (0, ) - 0 (включительно) и более
+        //? - {0, 1} - наличие отсутствия (0 или 1)
+
+        console.log('+7 (000) 000-00-00'.match(/\d/ig));
+        console.log('+7 (000) 000-00-00'.match(/\d+/ig).join(''));
+
+        console.log('color colour colotr'.match(/colou?r/ig));
+        console.log('color colour colotr'.match(/colo[ut]?r/ig));
+
+        //^$ - начало и конец строки
+        //2133542$(&mail@mail.ru$5452315
+        console.log('JavaScript'.match(/Script/i));
+        console.log('JavaScript'.match(/^Script/i));
+        console.log('JavaScript'.match(/^Java/i));
+
+        console.log('JavaScript'.match(/Java$/i));
+        console.log('JavaScript'.match(/Script$/i));
+
+        console.log('JavaScript'.match(/^j[a-z]+pt$/i));
+    </script>
+</head>
+<body>
+
+</body>
+</html>
