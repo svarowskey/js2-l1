@@ -11,7 +11,6 @@ MenuItem.prototype.renderItem = function () {
     return `<li><a href="${this.href}"></a>${this.title}</li>`; //ES6
 };
 
-//TODO: удаление меню
 Menu.prototype.remove = function () {
     var myMenu = document.getElementById(`${Menu.id}`);
     myMenu.innerHTML = '';
