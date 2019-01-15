@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slider</title>
+    <script src="jquery-3.3.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            var $slides = $('.slider .slide');
+            var $btn1 = $('#btn1');
+            var $btn2 = $('#btn2');
+            const ACTIVE_CLASS = 'active';
+
+            $slides.not('.' + ACTIVE_CLASS).hide();
+
+            $btn1.on('click', function () {
+                if ($slides.filter('.' + ACTIVE_CLASS).prev().hasClass('slide')){
+                    //Это слайд
+                    $slides
+                        .filter('.' + ACTIVE_CLASS)
+                        .slideUp(1000)
+                        .removeClass(ACTIVE_CLASS)
+                        .prev()
+                        .addClass(ACTIVE_CLASS)
+                        .slideDown(1000);
+                } else {
+                    console.log('No slides (top)');
+                }
+            });
+            $btn2.on('click', function () {
+                if ($slides.filter('.' + ACTIVE_CLASS).next().hasClass('slide')){
+                    //Это слайд
+                    $slides
+                        .filter('.' + ACTIVE_CLASS)
+                        .slideUp(1000)
+                        .removeClass(ACTIVE_CLASS)
+                        .next()
+                        .addClass(ACTIVE_CLASS)
+                        .slideDown(1000);
+                } else {
+                    console.log('No slides (bottom)');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="slider">
+    <div class="slide">
+        <img src="img/1.jpg" alt="Слайд 1" width="400" height="250">
+    </div>
+    <div class="slide active">
+        <img src="img/2.jpg" alt="Слайд 2" width="400" height="250">
+    </div>
+    <div class="slide">
+        <img src="img/3.jpg" alt="Слайд 3" width="400" height="250">
+    </div>
+    <div class="slide">
+        <img src="img/4.jpg" alt="Слайд 4" width="400" height="250">
+    </div>
+    <div class="slide">
+        <img src="img/5.jpg" alt="Слайд 5" width="400" height="250">
+    </div>
+</div>
+<button id="btn1">Вниз</button>
+<button id="btn2">Вверх</button>
+</body>
+</html>

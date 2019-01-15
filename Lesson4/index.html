@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery</title>
+    <script src="jquery-3.3.1.js"></script>
+    <style>
+        .orange {
+            color: orange;
+        }
+    </style>
+    <script>
+        console.log($, jQuery);
+        //window.onload()
+
+        $(document).ready(function () {
+            console.log($('p'));
+            $('p').addClass('orange').css('font-weight', 'bold');
+
+            $('#p1').css({
+                color: 'lime',
+                textDecoration: 'underline',
+            });
+
+            $('.p2').removeClass('orange');
+
+
+            console.log($('p:eq(2)'));
+
+            //Выбор элемента внутри другого элемента
+            var $myB = $('#d1').find('b.b1');
+            console.log($myB);
+            console.log($myB.text());
+            console.log($myB.html());
+
+            //Перебор элементов
+            $('p').each(function (index, item) {
+                console.log(index, item);
+                //JS
+                var text = item.textContent;
+                console.log('JS', text);
+
+                //Снова jQuery
+                var $item = $(item);
+                var text2 = $item.text();
+                console.log('jQuery', text2);
+            });
+
+            var $newEl = $('<b>New el</b>');
+
+            $('body').append($newEl);
+
+            //Работа с событиями
+            var $container = $('.container');
+            var $btn1 = $('.btn1');
+            var $btn2 = $('.btn2');
+            var $btn3 = $('.btn3');
+            var $btn4 = $('.btn4');
+
+            $btn1.on('click', function () {
+                // $container.hide();
+                // $container.slideUp(1000); //3 сек
+                $container.fadeOut(1000);
+            });
+            $btn2.on('click', function () {
+                // $container.show();
+                // $container.slideDown(1000);
+                $container.fadeIn(1000);
+            });
+            $btn3.on('click', function () {
+                // $container.toggle();
+                // $container.slideToggle(1000);
+                $container.fadeToggle(1000);
+            });
+            $btn4.on('click', function () {
+                $container.fadeTo(2000, 0.5);
+            });
+
+            $('.ajax-btn').on('click', function () {
+                var $ajaxData = $('.ajax-data');
+
+                //Выполняем запрос
+                $.ajax({
+                    type: 'GET',
+                    url: './user.json',
+                    dataType: 'json', //html, text, json
+                    success: function (data) {
+                        $ajaxData.html(`${data.name} - <b>${data.tel}</b>`);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    },
+                });
+            });
+        });
+
+    </script>
+</head>
+<body>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa impedit omnis soluta temporibus! Ad aliquid
+    blanditiis consequatur deleniti dicta, error eum fuga harum id, ipsum modi molestias quibusdam voluptatum!
+    Autem!</p>
+<p id="p1">Ad consequuntur delectus dolor doloribus esse libero nesciunt quisquam ratione saepe voluptates. Dicta dolor
+    doloribus hic inventore minus, officiis quasi quia repellat repudiandae vitae! Aliquam eligendi libero molestias
+    rerum tenetur!</p>
+<p class="p1">Aperiam cupiditate eos est minus, nisi odio provident. Ab adipisci architecto dicta distinctio dolorem
+    eveniet id
+    ipsam ipsum, itaque laborum numquam odit officia perspiciatis placeat quia repellat repudiandae ut
+    voluptates.</p>
+<p class="p2">Ab ad consectetur cum deleniti distinctio ducimus illo impedit maiores natus necessitatibus quasi, quod
+    ratione
+    repellat repellendus rerum sed sequi. Aspernatur commodi excepturi magni minima neque non quidem ratione
+    sed.</p>
+<p>Animi architecto blanditiis consectetur corporis delectus magnam neque obcaecati possimus rem saepe, sint soluta
+    sunt! Aliquid at eligendi, eos exercitationem in, itaque nesciunt pariatur quibusdam ratione sapiente sit vitae
+    voluptas!</p>
+<p>Accusantium eos id labore mollitia! Delectus deleniti et incidunt labore optio sapiente, tempore. Beatae corporis
+    dolores dolorum esse eveniet excepturi in ipsam nulla, quae quaerat. Consequatur cum harum molestias
+    perferendis?</p>
+<p>Ab amet assumenda dignissimos eaque hic unde? Aspernatur atque consequuntur illo ipsum maiores molestiae
+    praesentium rerum sequi ullam. Beatae cupiditate eaque explicabo, laudantium odio officia provident ratione unde
+    ut voluptas.</p>
+<div id="d1">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus amet, delectus deleniti earum esse ex id in
+    incidunt maiores molestiae nam odit pariatur porro possimus quas repellendus sed vel voluptatum!
+    <b class="b1">Искомый <span>текст</span></b>
+</div>
+<hr>
+<div class="container">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem eius fuga iure odit omnis provident sint suscipit voluptatibus? Commodi deleniti earum inventore ipsa ipsam quaerat reprehenderit sed suscipit unde voluptatibus.</p>
+</div>
+<button class="btn1">Свернуть блок</button>
+<button class="btn2">Развернуть блок</button>
+<button class="btn3">Свернуть/Развернуть блок</button>
+<button class="btn4">Полупрозрачный блок</button>
+<hr>
+<h2>Ajax</h2>
+<div class="ajax-data"></div>
+<button class="ajax-btn">Получить данные</button>
+</body>
+</html>
