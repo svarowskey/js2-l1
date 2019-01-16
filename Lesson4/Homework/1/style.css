@@ -1,0 +1,28 @@
+.row {
+    display: flex;
+    margin-bottom: -2px;
+}
+.tab {
+    padding: 10px 20px;
+    background: blue;
+    color: #ffffff;
+    border: 2px solid blue;
+}
+.tab:not(:last-child).tab:not(:first-child){
+    border-color: black;
+}
+.tab-active, .tab:hover {
+    background: white;
+    color: #000;
+    border-bottom: none;
+    cursor: pointer;
+}
+.main-block {
+    width: 700px;
+    border: 2px solid blue;
+    display: none;
+    padding: 10px 20px;
+}
+.active-main {
+    display: block;
+}

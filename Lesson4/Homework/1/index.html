@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>control</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery-3.3.1.js"></script>
+    <script>
+        $('document').ready(function () {
+            var $mainBlocks = $('.main-block');
+            var $rowTabs = $('.row');
+            const ACTIVE_MAIN = 'active-main';
+            const ACTIVE_TAB = 'tab-active';
+            $rowTabs.on('click', 'div:not(.tab-active)', function () {
+                $(this).addClass(ACTIVE_TAB).siblings().removeClass(ACTIVE_TAB);
+                $(this).closest('div.container').find('div.main-block').removeClass(ACTIVE_MAIN).eq($(this).index()).addClass(ACTIVE_MAIN);
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div id="block1" class="tab tab-active">Первая вкладка</div>
+        <div id="block2" class="tab">Вторая вкладка</div>
+        <div id="block3" class="tab">Третья вкладка</div>
+        <div id="block4" class="tab">Четвертая вкладка</div>
+    </div>
+    <div id="main1" class="main-block active-main">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid architecto asperiores eius error
+        facilis fugiat laboriosam minima repudiandae velit. Ad consequuntur laboriosam magnam repudiandae veritatis.
+        Alias consequuntur dolore dolorum facilis hic, ipsa labore libero maiores, maxime mollitia necessitatibus neque
+        non numquam officia officiis optio quaerat quas quia temporibus tenetur.
+    </div>
+    <div id="main2" class="main-block">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium at atque commodi culpa, delectus dolor
+        ducimus enim excepturi exercitationem fugit id inventore itaque iure iusto laborum maiores maxime minima nihil,
+        officia optio perferendis, quibusdam quisquam sit soluta sunt vitae voluptatem.
+    </div>
+    <div id="main3" class="main-block">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur cum debitis dignissimos
+        distinctio dolor dolores doloribus ducimus earum enim eos et eveniet harum hic incidunt iste labore, maiores
+        molestiae molestias nam nisi nulla perferendis perspiciatis placeat praesentium provident quibusdam ratione
+        sequi, similique sit totam ut vero voluptate! Accusantium consectetur, consequuntur eveniet ipsa maiores modi
+        perferendis quaerat. Ab accusamus architecto consectetur dignissimos doloremque dolorum harum, hic iusto
+        molestias odio omnis placeat quia quo ratione, saepe tenetur ut veniam vero. A accusantium aliquid animi cumque
+        facilis neque obcaecati soluta totam voluptatem? Explicabo itaque iusto molestiae nostrum sed. Excepturi iste
+        odit totam.
+    </div>
+    <div id="main4" class="main-block">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aspernatur autem, corporis debitis deleniti
+        dolorum earum, eius eligendi, enim error est eum impedit ipsum iusto natus odio omnis porro qui quos reiciendis
+        repellat repellendus sequi vero vitae voluptate. Accusamus aliquid aut commodi consequatur, cupiditate dolores
+        facere harum nisi nostrum officiis omnis, quisquam rerum totam! Amet consequuntur officia reiciendis suscipit
+        vitae?
+    </div>
+</div>
+</body>
+</html>

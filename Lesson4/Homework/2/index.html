@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+    <script src="jquery-3.3.1.js"></script>
+</head>
+<body>
+<form id="form">
+    <fieldset>
+        <legend>It's an Adventure Time</legend>
+        <p>
+            <label for="name"></label>
+            <input type="text" name="name" id="name" placeholder="Your name">
+        </p>
+        <p>
+            <label for="phone"></label>
+            <input type="text" name="phone" id="phone" placeholder="+7(777) 777-7777">
+        </p>
+        <p>
+            <label for="email"></label>
+            <input type="text" name="email" id="email" placeholder="Your email">
+        </p>
+        <p>
+            <label for="city"></label>
+            <input type="text" name="city" id="city" placeholder="Your city">
+        </p>
+        <p>
+            <input type="text" name="message" id="message" placeholder="Your message">
+        </p>
+        <input type="submit" name="submit" class="submit" value="Send">
+    </fieldset>
+</form>
+<script>
+    $('document').ready(function () {
+        var $cityList = new XMLHttpRequest();
+        var city = {};
+        $cityList.open('GET', 'list.txt');
+        $cityList.onreadystatechange = function() {
+            // city = $cityList.responseText;
+            console.log($cityList.responseText);
+        };
+        $cityList.send();
+
+        console.log(city);
+
+        $('#city').bind("change keyup input click", function () {
+            var searchText = $('#city').val().toLowerCase();
+
+            if (this.value.length >= 2) {
+                $cityList.each(function (i) {
+                    console.log(i);
+
+                })
+            }
+
+            console.log(searchText);
+        });
+
+        document.getElementById('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var nameText = document.getElementById('name').value;
+            var phoneText = document.getElementById('phone').value;
+            var emailText = document.getElementById('email').value;
+            var messageText = document.getElementById('message').value;
+
+            var nameRegExp = new RegExp("^[A-zА-яЁё]+([a-zA-Zа-яА-Я']+)*$");
+            var isNameTextValid = nameRegExp.test(nameText);
+
+            //Выполняем проверки
+            if (!isNameTextValid && nameText !== '') {
+                e.preventDefault();
+                alert('Use letters only for name');
+            }
+
+            var phoneRegExp = /^\+7\(\d{3}\)\d{3}-?\d{4}$/;
+            var isPhoneTextValid = phoneRegExp.test(phoneText);
+
+            //Выполняем проверки
+            if (!isPhoneTextValid && phoneText !== '') {
+                e.preventDefault();
+                alert('Use correct phone number!');
+            }
+
+            var emailRegExp = new RegExp("^[a-zA-Z0-9.!#$%&`*+/=?^_'{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$");
+            var isEmailTextValid = emailRegExp.test(emailText);
+
+            //Выполняем проверки
+            if (!isEmailTextValid && emailText !== '') {
+                e.preventDefault();
+                alert('Use correct email!');
+            }
+
+            if (messageText === "") {
+
+                e.preventDefault();
+                alert('Write your message');
+            }
+        })
+        }
+    );
+</script>
+</body>
+</html>
