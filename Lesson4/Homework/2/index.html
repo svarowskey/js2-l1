@@ -23,7 +23,7 @@
         </p>
         <p>
             <label for="city"></label>
-            <input type="text" name="city" id="city" placeholder="Your city">
+            <select name="city" id="city" class="city"></select>
         </p>
         <p>
             <input type="text" name="message" id="message" placeholder="Your message">
@@ -32,31 +32,6 @@
     </fieldset>
 </form>
 <script>
-    $('document').ready(function () {
-        var $cityList = new XMLHttpRequest();
-        var city = {};
-        $cityList.open('GET', 'list.txt');
-        $cityList.onreadystatechange = function() {
-            // city = $cityList.responseText;
-            console.log($cityList.responseText);
-        };
-        $cityList.send();
-
-        console.log(city);
-
-        $('#city').bind("change keyup input click", function () {
-            var searchText = $('#city').val().toLowerCase();
-
-            if (this.value.length >= 2) {
-                $cityList.each(function (i) {
-                    console.log(i);
-
-                })
-            }
-
-            console.log(searchText);
-        });
-
         document.getElementById('form').addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -97,9 +72,27 @@
                 e.preventDefault();
                 alert('Write your message');
             }
+        });
+
+        var $select = $('#city');
+
+        $.ajax({
+            type: 'GET',
+            url: 'list.json',
+            dataType: 'json',
+            success: function (data) {
+                let amountCities = data.cities.length;
+                for (let i = 0; i < amountCities; i++) {
+                    let $option = $("<option></option>");
+                    $option.attr('value', data.cities[i]);
+                    $option.text(data.cities[i]);
+                    $select.append($option);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
         })
-        }
-    );
 </script>
 </body>
 </html>

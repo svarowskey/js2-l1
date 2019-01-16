@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+    <link rel="stylesheet" href="jquery-ui/jquery-ui.min.css">
+    <script src="jquery-3.3.1.js"></script>
+    <script src="jquery-ui/jquery-ui.min.js"></script>
+    <script>
+        $('document').ready(() => {
+            let autoCitys = [];
+            $.ajax({
+                url: 'list-region.json',
+                dataType: 'json',
+                success: (data, Status) => {
+                    for (i of data) {
+                        autoCitys.push(i.city);
+                    }
+                }
+            });
+
+            $('#autocomplite').autocomplete({source: autoCitys});
+            $('#autocomplite').autocomplete("option", "minLength", 3);
+
+            $autocomplite = $('#autocomplite2');
+            $autocomplite.on('input', () => {
+                var $input = $autocomplite.val(),
+                    $search = $('#search'); //Блок для вывода результатов
+                $search.empty();
+                if ($input.length >= 1) {
+                    var regexp = new RegExp($input, 'i');
+                    for (var i = 0; i < autoCitys.length; i++) {
+                        if (autoCitys[i].search(regexp) !== -1) {
+                            $search.append('<p>' + autoCitys[i] +'</p>')
+                            $('.search p').addClass('search_result');
+                        }
+                    }
+                }
+                $('.search_result').on('click', function () {
+                    $autocomplite.val(this.innerText);
+                    $search.empty();
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>Выпадающие списки</h2>
+    <form action="url">
+        <select name="region" id="region"></select>
+        <select name="city" id="city"></select>
+    </form>
+    <br>
+    <br>
+    <h2>Автозаполнение для городов с JQueryUI</h2>
+    <form action="url">
+        <input type="text" name="city" id="autocomplite" />
+    </form>
+
+    <br>
+    <br>
+    <h2>Автозаполнение без JQueryUI</h2>
+    <form action="url">
+        <input type="text" name="city" id="autocomplite2" autocomplete="off" />
+        <div class="search" id="search"></div>
+    </form>
+
+</body>
+</html>
