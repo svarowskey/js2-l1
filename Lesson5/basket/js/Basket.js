@@ -76,23 +76,16 @@ class Basket {
     {
         //TODO: ДЗ - реализация удаления товара из корзины
 
-        var myIdx = 0;
-        // this.basketItems.find(function (data) {
-        //     console.log(data);
-        // }, idProduct);
-         this.basketItems.findIndex(function (currentValue, index, arr) {
-             console.log(arr);
-         });
+        //Получаем индекс товара
+        let indexGood = this.basketItems.findIndex(data => data.id_product === idProduct);
 
-        // this.basketItems.some(function (val, index, arr) {
-        //     if (val.id_product === idProduct) {
-        //         myIdx = index;
-        //     }
-        // });
-        // this.basketItems.splice(myIdx, 1);
-        // if (this.amount !== 0) {
-        //     this.amount -= priceProduct;
-        // }
+        //Если индекс товара нашелся и массив не пустой и общая стоимость не равна нулю, тогда удаляем товар
+        if ((indexGood !== -1) & (this.basketItems.length !== 0) & (this.amount !== 0)) {
+            this.basketItems.splice(indexGood, 1);
+            this.amount -= priceProduct;
+        }
+
+        //Обновляем корзину
         this.refresh();
     }
 
