@@ -74,8 +74,6 @@ class Basket {
 
     remove(idProduct, priceProduct)
     {
-        //TODO: ДЗ - реализация удаления товара из корзины
-
         //Получаем индекс товара
         let indexGood = this.basketItems.findIndex(data => data.id_product === idProduct);
 
@@ -96,7 +94,5 @@ class Basket {
 
         $basketData.append(`<p>Всего товаров: ${this.basketItems.length}</p>`);
         $basketData.append(`<p>Общая стоимость: ${this.amount}</p>`);
-
-        console.log(this.basketItems);
     }
 }
