@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+    <link rel="stylesheet" href="js/jquery-ui/themes/base/all.css">
+    <link rel="stylesheet" href="js/jquery-ui/themes/humanity/jquery-ui.min.css">
+    <link rel="stylesheet" href="js/jquery-ui/themes/humanity/theme.css">
+
+    <script src="js/jquery/dist/jquery.min.js"></script>
+    <script src="js/jquery-ui/jquery-ui.min.js"></script>
+    <style>
+        input:not([name=submit]) {
+            width: 19em;
+            white-space: nowrap;
+            padding: 7px 17px;
+        }
+        input[name=submit] {
+            width: 22em;
+        }
+        .error {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<form id="form">
+    <fieldset>
+        <legend>Form</legend>
+        <p>
+            <label for="name">Name</label><br>
+            <input type="text" name="name" id="name" placeholder="Your name" class="ui-corner-all ui-state-default " title="Enter Your name">
+        </p>
+        <p>
+            <label for="phone">Phone</label><br>
+            <input type="text" name="phone" id="phone" placeholder="+7(777) 777-7777" class="ui-corner-all ui-state-default" title="Your phone number">
+        </p>
+        <p>
+            <label for="email">E-mail</label><br>
+            <input type="text" name="email" id="email" placeholder="Your email" class="ui-corner-all ui-state-default" title="Your email address">
+        </p>
+        <p>
+            <label for="datepicker">Birthday</label><br>
+            <input type="text" id="datepicker" class="ui-corner-all ui-state-default" title="Choose your birthday">
+        </p>
+        <p>
+            <label for="city">City</label><br>
+            <select name="city" id="city" class="city" title="Your city"></select>
+        </p>
+        <p>
+            <label for="message">Your message</label><br>
+            <input type="text" name="message" id="message" placeholder="Your message" class="ui-corner-all ui-state-default" title="Please enter Your message">
+        </p>
+        <input type="submit" name="submit" class="submit ui-button ui-corner-all" value="Send">
+
+        <div id="errors" title="Your errors"></div>
+    </fieldset>
+</form>
+<script>
+        document.getElementById('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var nameText = document.getElementById('name').value;
+            var phoneText = document.getElementById('phone').value;
+            var emailText = document.getElementById('email').value;
+            var messageText = document.getElementById('message').value;
+            var birthdayText = document.getElementById('datepicker').value;
+
+            var errors = [];
+
+            var nameRegExp = new RegExp("^[A-zА-яЁё]+([a-zA-Zа-яА-Я']+)*$");
+            var isNameTextValid = nameRegExp.test(nameText);
+
+            $('#name').removeClass('error');
+            $('#phone').removeClass('error');
+            $('#email').removeClass('error');
+            $('#message').removeClass('error');
+
+            //Выполняем проверки
+            if (!isNameTextValid && nameText === '') {
+                e.preventDefault();
+                $('#name').addClass('error')
+                    .effect('bounce', {}, 1000);
+                errors.push('Введите имя');
+            }
+
+            var phoneRegExp = /^\+7\(\d{3}\)\d{3}-?\d{4}$/;
+            var isPhoneTextValid = phoneRegExp.test(phoneText);
+
+            //Выполняем проверки
+            if (!isPhoneTextValid && phoneText === '') {
+                e.preventDefault();
+                $('#phone').addClass('error')
+                    .effect('bounce', {}, 1000);
+                errors.push('Введите телефон');
+            }
+
+            var emailRegExp = new RegExp("^[a-zA-Z0-9.!#$%&`*+/=?^_'{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$");
+            var isEmailTextValid = emailRegExp.test(emailText);
+
+            //Выполняем проверки
+            if (!isEmailTextValid && emailText === '') {
+                e.preventDefault();
+                $('#email').addClass('error')
+                    .effect('bounce', {}, 1000);
+                errors.push('Введите email');
+            }
+
+                //Выполняем проверки
+                if (birthdayText === '') {
+                    e.preventDefault();
+                    $('#datepicker').addClass('error')
+                        .effect('bounce', {}, 1000);
+                    errors.push('Введите дату рождения');
+                }
+
+                if (messageText === "") {
+                    e.preventDefault();
+                    $('#message').addClass('error')
+                        .effect('bounce', {}, 1000);
+                    errors.push('Введите сообщение')
+                }
+
+                $('#errors').empty();
+
+            var elementJq = $('<ul/>', {
+                id: 'errors-list'
+            } );
+
+             if (errors[0]) {
+                for (let i = 0; i < errors.length; i++) {
+                    elementJq.append(`<li>${errors[i]}</li>`);
+                }
+                 $('#errors').append(elementJq);
+                $('#errors').dialog('open');
+             }
+        });
+
+        var $select = $('#city');
+
+        $.ajax({
+            type: 'GET',
+            url: 'list.json',
+            dataType: 'json',
+            success: function (data) {
+                let amountCities = data.cities.length;
+                for (let i = 0; i < amountCities; i++) {
+                    let $option = $("<option></option>");
+                    $option.attr('value', data.cities[i]);
+                    $option.text(data.cities[i]);
+                    $select.append($option);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+        $("#city").selectmenu();
+        $(document).tooltip();
+        $( "#datepicker" ).datepicker({
+            firstDay: 1,
+            dateFormat: "dd-mm-yy",
+            dayNames: [ "Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота" ],
+            dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ]
+
+        });
+
+        $("#errors").dialog({
+            autoOpen: false,
+        });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery UI</title>
+    <link rel="stylesheet" href="bower_components/jquery-ui/themes/base/all.css">
+    <link rel="stylesheet" href="bower_components/jquery-ui/themes/humanity/jquery-ui.min.css">
+    <link rel="stylesheet" href="bower_components/jquery-ui/themes/humanity/theme.css">
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#draggable').draggable({
+                // axis: 'y', //x //Ось перемещения
+                // revert: true, //Возврат элемента в исходное состояние
+                // containment: 'parent', //Ближайший родитель
+                // containment: '#draggable-parent', //Родитель, задан через селектор
+            });
+
+            $('.btn1').on('click', function () {
+                $('#draggable').draggable('option', 'containment', 'parent');
+            });
+
+            $('.btn2').on('click', function () {
+                console.log($('#draggable').draggable('option', 'containment'));
+            });
+
+            $('.btn3').on('click', function () {
+                console.log($('#draggable').draggable('option', 'containment', false));
+            });
+
+            $('.btn4').on('click', function () {
+                console.log($('#draggable').draggable('disable'));
+            });
+
+            $('.btn5').on('click', function () {
+                console.log($('#draggable').draggable('enable'));
+            });
+
+            $('.btn6').on('click', function () {
+                console.log($('#draggable').draggable('destroy'));
+            });
+
+            //Droppable
+            $('#droppable').droppable({
+                drop: function (event, ui) {
+                    console.log(event, ui);
+                    console.log(ui.draggable[0]);
+                    console.log($(ui.draggable[0]).attr('data-id'));
+                    // basket.addProduct(ui.draggable[0].attr('data-id'));
+                }
+            });
+
+            $('#accordion').accordion();
+
+            var availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme"
+            ];
+            $( "#tags" ).autocomplete({
+                source: availableTags
+            });
+
+            $( "#datepicker" ).datepicker({
+                dateFormat: "dd-mm-yy",
+                dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ],
+                firstDay: 1,
+            });
+
+            $( "#dialog" ).dialog({
+                autoOpen: false,
+            });
+
+            $('.btn7').on('click', function () {
+                $( "#dialog" ).dialog('close');
+            });
+            $('.btn8').on('click', function () {
+                $( "#dialog" ).dialog('open');
+            });
+
+            $( "#tabs" ).tabs();
+
+            $( document ).tooltip();
+        });
+    </script>
+
+    <style>
+        #draggable {
+            width: 200px;
+            height: 200px;
+            border: 1px solid orangered;
+            background-color: coral;
+        }
+        #draggable-parent {
+            width: 500px;
+            height: 500px;
+            border: 1px solid green;
+            background-color: lightgreen;
+        }
+        #droppable {
+            width: 300px;
+            height: 300px;
+            border: 1px dotted green;
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+    <div id="draggable-parent">
+        <div id="draggable" data-id="1000"></div>
+    </div>
+<button class="btn1">Ограничиваем перемещение</button>
+<button class="btn2">Показать значение параметра</button>
+<button class="btn3">Убрать ограничение</button>
+<button class="btn4">Отключить перемещение</button>
+<button class="btn5">Включить перемещение</button>
+<button class="btn6">Удалить перемещение</button>
+    <hr>
+<div id="droppable">
+    Область для перемещения
+</div>
+    <div id="accordion">
+        <h3>Section 1</h3>
+        <div>
+            <p>
+                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+                ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+                amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+                odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+            </p>
+        </div>
+        <h3>Section 2</h3>
+        <div>
+            <p>
+                Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+                purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+                velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+                suscipit faucibus urna.
+            </p>
+        </div>
+        <h3>Section 3</h3>
+        <div>
+            <p>
+                Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
+                Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
+                ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
+                lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
+            </p>
+            <ul>
+                <li>List item one</li>
+                <li>List item two</li>
+                <li>List item three</li>
+            </ul>
+        </div>
+        <h3>Section 4</h3>
+        <div>
+            <p>
+                Cras dictum. Pellentesque habitant morbi tristique senectus et netus
+                et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
+                faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
+                mauris vel est.
+            </p>
+            <p>
+                Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
+                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+                inceptos himenaeos.
+            </p>
+        </div>
+    </div>
+
+    <hr>
+    <div class="ui-widget">
+        <label for="tags">Tags: </label>
+        <input id="tags">
+    </div>
+
+    <hr>
+    <p>Date: <input type="text" id="datepicker"></p>
+
+    <hr>
+    <div id="dialog" title="Basic dialog">
+        <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+    </div>
+    <button class="btn7">Скрыть окно</button>
+    <button class="btn8">Показать окно</button>
+
+    <hr>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Nunc tincidunt</a></li>
+            <li><a href="#tabs-2">Proin dolor</a></li>
+            <li><a href="#tabs-3">Aenean lacinia</a></li>
+        </ul>
+        <div id="tabs-1">
+            <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+        </div>
+        <div id="tabs-2">
+            <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+        </div>
+        <div id="tabs-3">
+            <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+            <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+        </div>
+    </div>
+
+    <hr>
+    <p><a href="#" title="That&apos;s what this widget is">Tooltips</a> can be attached to any element. When you hover
+        the element with your mouse, the title attribute is displayed in a little box next to the element, just like a native tooltip.</p>
+    <p>But as it's not a native tooltip, it can be styled. Any themes built with
+        <a href="http://jqueryui.com/themeroller/" title="ThemeRoller: jQuery UI&apos;s theme builder application">ThemeRoller</a>
+        will also style tooltips accordingly.</p>
+    <p>Tooltips are also useful for form elements, to show some additional information in the context of each field.</p>
+    <p><label for="age">Your age:</label><input id="age" title="We ask for your age only for statistical purposes."></p>
+    <p>Hover the field to see the tooltip.</p>
+</body>
+</html>
