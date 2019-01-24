@@ -10,7 +10,7 @@ $(document).ready(function () {
     good2.render($goodsContainer);
 
     //Создаем экземпляр корзины
-    let basket = new Basket('basket');
+    let basket = new BasketClass('basket');
     basket.render($('.basket_wrapper'));
 
     //Добавление товара в корзину
