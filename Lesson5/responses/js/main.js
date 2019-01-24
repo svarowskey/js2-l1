@@ -1,11 +1,13 @@
 $(document).ready(function () {
-    //Контейнер с отзывами
-    let $responsesContainer = $('#responses');
+    //Экземпляр инпута
+    let RespInp = new ResponseInput('Здесь вы можете написать свой отзыв:');
+    RespInp.render('#respInp');
 
-    let response1 = new Response();
-    response1.render($responsesContainer);
+    //Экземпляр листа
+    let RespList = new ResponseList();
+    RespList.render($('.response_wrapper'));
 
-    $('.likeResp').on('click', function () {
-        alert('hello');
-    });
+
+
+
 });
