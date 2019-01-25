@@ -1,6 +1,6 @@
 let gulp = require('gulp'),
     sass = require('gulp-sass'),
-    uglifyJs = require('gulp-uglifyjs'),
+    uglifyEs = require('gulp-uglify-es').default;
     autoPrefix = require('gulp-autoprefixer'),
     concat = require('gulp-concat'),
     htmlMin = require('gulp-htmlmin'),
@@ -18,7 +18,7 @@ gulp.task('js', function () {
     gulp.src('./app/js/**/*.js')
         .pipe(concat('all.js'))
         .pipe(gulp.dest('./dist/js'))
-        .pipe(uglifyJs())
+        .pipe(uglifyEs())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('./dist/js'));
 });
