@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jasmine</title>
+    <link rel="stylesheet" href="bower_components/jasmine-core/lib/jasmine-core/jasmine.css">
+    <script src="bower_components/jasmine-core/lib/jasmine-core/jasmine.js"></script>
+    <script src="bower_components/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
+    <script src="bower_components/jasmine-core/lib/jasmine-core/boot.js"></script>
+
+    <script>
+        function myFunc(step)
+        {
+            // ... какой-то код
+            if (step === 1) {
+                return'new';
+            }
+            return null;
+        }
+
+        //Группа тестов
+        describe('Соответствие значений', function () {
+            //Конкретный тест
+            it('Проверка a == 10', function () {
+                var a = 10;
+                //Проверка гипотезы внутри теста
+                expect(a).toBe(10);
+
+                //Не равно
+                expect(a).not.toBe(11);
+            });
+
+            //Текстирование функции
+            it('Тестирование функции', function () {
+                expect(myFunc()).toBeNull();
+                expect(myFunc(1)).toBe('new');
+
+                //Строгое равенство
+                expect(myFunc(1)).toEqual('new');
+
+                expect(10).toEqual(10);
+                expect(10).not.toEqual('10');
+            });
+
+            //Методы
+            it('Дополнительные методы', function () {
+                expect(false).toBeFalsy();
+                expect(true).not.toBeFalsy();
+                expect(true).toBeTruthy();
+                expect(false).not.toBeTruthy();
+                expect(NaN).toBeNaN();
+                expect(10).not.toBeNaN();
+                expect(undefined).toBeUndefined();
+                expect(true).not.toBeUndefined();
+            });
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>
